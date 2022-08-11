@@ -61,11 +61,12 @@ catkin_package(
 #add_executable(example examples/example.cpp)
 #target_link_libraries(example ${PROJECT_NAME})
 #Building executables:
-include_directories(${CATKIN_INCLUDE_DIRS})
+include_directories(${catkin_INCLUDE_DIRS})
 add_executable(state_validity_checker_node
       src_ros/state_validity_checker_node.cpp
       )
-target_link_libraries(state_validity_checker_node ${CATKIN_LIBRARIES})
+add_dependencies(state_validity_checker_node ${catkin_EXPORTED_TARGETS})
+target_link_libraries(state_validity_checker_node ${catkin_LIBRARIES})
 ## Generate added messages and services with any dependencies listed here
 #generate_messages()
 
