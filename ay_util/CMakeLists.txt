@@ -5,8 +5,6 @@ project(ay_util)
 # Load catkin and all dependencies required for this package
 # TODO: remove all from COMPONENTS that are not catkin packages.
 find_package(catkin REQUIRED COMPONENTS ay_util_msgs roscpp eigen_conversions moveit_core moveit_ros_planning_interface)
-
-# include_directories(include ${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS})
 # CATKIN_MIGRATION: removed during catkin migration
 # cmake_minimum_required(VERSION 2.4.6)
 
@@ -33,6 +31,13 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #set the default path for built libraries to the "lib" directory
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
+catkin_package(
+    DEPENDS ay_util_msgs roscpp eigen_conversions moveit_core moveit_ros_planning_interface
+    CATKIN_DEPENDS # TODO
+    INCLUDE_DIRS # TODO include
+    LIBRARIES # TODO
+)
+
 #uncomment if you have defined messages
 #add_message_files(
 #  FILES
@@ -51,25 +56,18 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 # CATKIN_MIGRATION: removed during catkin migration
 # rosbuild_add_boost_directories()
 #find_package(Boost REQUIRED COMPONENTS thread)
-#include_directories(${Boost_INCLUDE_DIRS})
+# include_directories(${Boost_INCLUDE_DIRS})
 #target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 #add_executable(example examples/example.cpp)
 #target_link_libraries(example ${PROJECT_NAME})
-
-
 #Building executables:
-
+include_directories(${CATKIN_INCLUDE_DIRS})
 add_executable(state_validity_checker_node
       src_ros/state_validity_checker_node.cpp
       )
+target_link_libraries(state_validity_checker_node ${CATKIN_LIBRARIES})
 ## Generate added messages and services with any dependencies listed here
 #generate_messages()
 
 # catkin_package parameters: http://ros.org/doc/groovy/api/catkin/html/dev_guide/generated_cmake_api.html#catkin-package
 # TODO: fill in what other packages will need to use this package
-catkin_package(
-    DEPENDS ay_util_msgs roscpp eigen_conversions moveit_core moveit_ros_planning_interface
-    CATKIN_DEPENDS # TODO
-    INCLUDE_DIRS # TODO include
-    LIBRARIES # TODO
-)
